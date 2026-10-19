@@ -1,0 +1,23 @@
+# Compiled binaries and object/dependency files
+/bin/
+/obj/
+*.o
+*.d
+
+# Large input traces and local run output
+/traces/
+/results/
+*.log
+
+# macOS and local editor settings
+.DS_Store
+._*
+/.vscode/
+*.swp
+*.swo
+*~
+
+# Backup files and temporary sed output
+*.bak
+/inc/champsim.h.cp
+/inc/sed??????

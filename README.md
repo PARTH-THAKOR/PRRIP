@@ -1,4 +1,4 @@
-<h1 align="center">PHASE AWARE UNIFIED L2 CACHE REPLACEMENT POLICY</h1>
+<h1 align="center">PHASE AWARE UNIFIED L2 CACHE REPLACEMENT</h1>
 
 <p align="center">
   <strong>Parthsinh R. Thakor</strong><br>

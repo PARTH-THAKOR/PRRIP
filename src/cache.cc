@@ -375,17 +375,17 @@ void CACHE::handle_fill()
         if(cache_type == IS_L2C && block[set][way].valid)
         {
 
-            if(block[set][way].instruction && fill_packet_type == 1)
+            if(block[set][way].bclass == BLOCK_CLASS::INSTRUCTION && fill_packet_type == 1)
                 transl_evicting_instr++;
-            else if(block[set][way].instruction && fill_packet_type == 2)
+            else if(block[set][way].bclass == BLOCK_CLASS::INSTRUCTION && fill_packet_type == 2)
                 instr_evicting_instr++;
-            else if(block[set][way].instruction && fill_packet_type == 3)
+            else if(block[set][way].bclass == BLOCK_CLASS::INSTRUCTION && fill_packet_type == 3)
                 data_evicting_instr++;
-            else if(block[set][way].translation && fill_packet_type == 1)
+            else if(block[set][way].bclass == BLOCK_CLASS::PTE && fill_packet_type == 1)
                 transl_evicting_transl++;
-            else if(block[set][way].translation && fill_packet_type == 2)
+            else if(block[set][way].bclass == BLOCK_CLASS::PTE && fill_packet_type == 2)
                 instr_evicting_transl++;
-            else if(block[set][way].translation && fill_packet_type == 3)
+            else if(block[set][way].bclass == BLOCK_CLASS::PTE && fill_packet_type == 3)
                 data_evicting_transl++;
             else if(fill_packet_type == 1)
                 transl_evicting_data++;
@@ -2918,17 +2918,15 @@ if((cache_type == IS_L1I || cache_type == IS_L1D) && reads_ready.size() == 0)
             block[set][way].prefetch = (packet->type == PREFETCH || packet->type == PREFETCH_TRANSLATION || packet->type == TRANSLATION_FROM_L1D) ? 1 : 0;
             block[set][way].used = 0;
 
-            //Neelu: Setting instruction and translation fields in L2C
+            // Classify L2 blocks from the incoming fill request.
             if(cache_type == IS_L2C)
             {	
                 if(packet->type == PREFETCH_TRANSLATION || packet->type == TRANSLATION_FROM_L1D || packet->type == LOAD_TRANSLATION)
-                    block[set][way].translation = 1;
+                    block[set][way].bclass = BLOCK_CLASS::PTE;
+                else if((packet->type == LOAD || packet->type == PREFETCH) && packet->instruction)
+                    block[set][way].bclass = BLOCK_CLASS::INSTRUCTION;
                 else
-                    block[set][way].translation = 0;
-                if((packet->type == LOAD || packet->type == PREFETCH) && packet->instruction)
-                    block[set][way].instruction = 1;
-                else
-                    block[set][way].instruction = 0;
+                    block[set][way].bclass = BLOCK_CLASS::DATA;
             }
 
             //Neelu: setting IPCP prefetch class

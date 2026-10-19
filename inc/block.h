@@ -5,15 +5,21 @@
 #include "instruction.h"
 #include "set.h"
 
+enum class BLOCK_CLASS : uint8_t {
+    DATA,
+    INSTRUCTION,
+    PTE
+};
+
 // CACHE BLOCK
 class BLOCK {
   public:
     uint8_t valid,
             prefetch,
             dirty,
-            used,
-	    instruction,
-	    translation;
+            used;
+
+    BLOCK_CLASS bclass;
 
     int delta,
         depth,
@@ -37,8 +43,7 @@ class BLOCK {
         prefetch = 0;
         dirty = 0;
         used = 0;
-	instruction = 0;
-	translation = 0;
+        bclass = BLOCK_CLASS::DATA;
 
         delta = 0;
         depth = 0;

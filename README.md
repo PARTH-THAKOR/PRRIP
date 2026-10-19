@@ -18,7 +18,7 @@ This project investigates a replacement policy that uses runtime cache behaviour
 
 ### Checkpoint I
 
-- [ ] Establish identification of instruction, data, and PTE blocks.
+- [x] Establish identification of instruction, data, and PTE blocks.
 - [ ] Evaluate baseline policies and collect class-wise cache behaviour over execution windows.
 - [ ] Test all six fixed class-priority orderings:
   - [ ] Instruction > Data > PTE

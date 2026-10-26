@@ -1,0 +1,28 @@
+# Compiled binaries and object/dependency files
+/bin/
+/obj/
+*.o
+*.d
+
+# Large input traces and local run output
+/traces/
+*.log
+!/log/prrip-test/*.log
+/results/results.md
+
+# macOS and local editor settings
+.DS_Store
+._*
+/.vscode/
+*.swp
+*.swo
+*~
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+/output/*
+
+# Backup files and temporary sed output
+*.bak
+/inc/champsim.h.cp
+/inc/sed??????

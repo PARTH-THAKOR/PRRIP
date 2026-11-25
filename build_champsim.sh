@@ -2,11 +2,11 @@
 
 L2C_REPLACEMENT="prrip"
 BINARY_NAME="prrip"
-WARMUP_INSTRUCTIONS=1000000
-SIMULATION_INSTRUCTIONS=10000000
+WARMUP_INSTRUCTIONS=25000000
+SIMULATION_INSTRUCTIONS=25000000
 TRACE_FOLDER="traces"
-TRACE_NAME="chirper.gz"
-L2_CSV="chirper_DIP_1k.csv"
+TRACE_NAME="omnetpp.xz"
+L2_CSV="lru.csv"
 
 set -e
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
@@ -61,7 +61,7 @@ for index in "${!sources[@]}"; do
 done
 
 # Hide successful build output, including warnings. Show diagnostics on failure.
-build_log=$(mktemp "${TMPDIR:-/tmp}/prrip-build.XXXXXX")
+build_log=$(mktemp "./.prrip-build.XXXXXX")
 trap 'rm -f "$build_log"' EXIT
 printf 'Building Binary...\n'
 if ! { make clean && make app="$BINARY_NAME"; } > /dev/null 2> "$build_log"; then
